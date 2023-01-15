@@ -98,4 +98,4 @@ async function main() {
   });
 }
 
-https: main();
+main();
