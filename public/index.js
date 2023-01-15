@@ -96,6 +96,31 @@ async function main() {
       },
     },
   });
+
+  // average chart here, at this point just copy above chart and tweak it for average values
+  new Chart(averagePriceChartCanvas.getContext("2d"), {
+    type: "pie",
+    data: {
+      labels: stocks.map((stock) => stock.meta.symbol),
+      datasets: [
+        {
+          label: "Average",
+          backgroundColor: stocks.map((stock) => getColor(stock.meta.symbol)),
+          borderColor: stocks.map((stock) => getColor(stock.meta.symbol)),
+          data: stocks.map((stock) => calculateAverage(stock.values)),
+        },
+      ],
+    },
+  });
+
+  // average price finder function
+  function calculateAverage(values) {
+    let total = 0;
+    values.forEach((value) => {
+      total += parseFloat(value.high);
+    });
+    return total / values.length;
+  }
 }
 
 main();
